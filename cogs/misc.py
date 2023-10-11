@@ -44,15 +44,15 @@ class Misc(commands.Cog):
     async def pfp(self, ctx,*, member: discord.Member = None):
         if not member:
             member = ctx.author
-        else:
-            pass
-        
+
         pfpEmbed = discord.Embed(
             title = f"{member}'s profile picture!",
             color= discord.Color.dark_blue()
         )
         pfpEmbed.set_image(url=member.avatar)
         await ctx.send(embed=pfpEmbed)
+
+    
         
 
 
