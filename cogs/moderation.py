@@ -81,4 +81,6 @@ class Moderation(commands.Cog):
         await member.kick(reason=reason)
                
 async def setup(client):
-    await client.add_cog(Moderation(client))       
+    await client.add_cog(Moderation(client))
+
+print("test")
