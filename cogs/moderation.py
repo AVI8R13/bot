@@ -84,3 +84,4 @@ async def setup(client):
     await client.add_cog(Moderation(client))
 
 print("test")
+print('ets2')
