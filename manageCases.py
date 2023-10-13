@@ -18,7 +18,7 @@ class ManageCases:
         
         return banCase, kickCase
 
-    def updateCases(self, banCase, kickCase):
+    def updateCases(self, banCase, kickCase): 
         with open('data/caseCounts.json', 'w') as updateCases: #dumps new case data
             cases = {
                 "bans": banCase,

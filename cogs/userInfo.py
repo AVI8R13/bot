@@ -30,23 +30,24 @@ class UserInfo(commands.Cog):
         )
         await ctx.send(embed=createdEmbed)
 
-    # @commands.command()
-    # async def joined(self, ctx, member: discord.Member = None):
-    #     if not member:
-    #         member = ctx.author
+    @commands.command()
+    async def whois(self, ctx, member: discord.Member = None):
+        if not member:
+            member = ctx.author
 
-    #     joined = member.joined_at
-    #     guildName = discord.Guild.name()
-
-    #     joinEmbed = discord.Embed(
-    #         title = f"{member}'s join date!",
-    #         description= f"{member} joined {member.uild.name} on {joined.strftime('%x')}",
-    #         color= discord.Color.dark_blue()
-    #     )
-    #     await ctx.send(embed=joinEmbed)
-
-
-
+        roles = [role.name for role in member.roles]
+        if len(roles) >= 30:
+            roles = str("Too many to show.")
+        else:
+            roles = [r.mention for r in member.roles if r != ctx.guild.default_role]
+        whoisEmbed = discord.Embed(
+        )
+        whoisEmbed.set_author(name=ctx.author)
+        whoisEmbed.set_thumbnail(url = member.avatar)
+        whoisEmbed.add_field(name = "Joined: ", value = member.joined_at.strftime('%Y-%m-%d'), inline=True)
+        whoisEmbed.add_field(name = "Registered", value = member.created_at.strftime('%Y-%m-%d'), inline=True)
+        whoisEmbed.add_field(name = f"Roles [{len(roles)}]", value = roles, inline = False)
+        await ctx.send(embed=whoisEmbed)
 
 
 async def setup(client):

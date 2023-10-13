@@ -10,7 +10,7 @@ class Moderation(commands.Cog):
         self.client = client
 
     @commands.command()
-    @commands.bot_has_guild_permissions(ban_members = True)
+    @commands.has_guild_permissions(ban_members = True)
     async def ban(self, ctx, member: discord.Member = None, *, reason = " "):
         caseManger = ManageCases()
         if reason == " ":
@@ -34,7 +34,7 @@ class Moderation(commands.Cog):
         await member.ban(reason=reason)
         
     @commands.command()
-    @commands.bot_has_guild_permissions(kick_members = True)
+    @commands.has_guild_permissions(kick_members = True)
     async def kick(self, ctx, member: discord.Member = None, *, reason = " "):
         caseManger = ManageCases()
         if reason == " ":
@@ -55,7 +55,7 @@ class Moderation(commands.Cog):
         kickEmbed.add_field(name=f"Reason:", value = reason, inline=True)
         kickEmbed.add_field(name=f"Kicked by:", value=ctx.author, inline=True)
         await ctx.send(embed = kickEmbed)
-        await member.kick(reason=reason)
+        await member.kick(reason=reason) 
                
 async def setup(client):
     await client.add_cog(Moderation(client))
