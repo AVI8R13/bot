@@ -3,7 +3,7 @@ from discord.ext import commands
 import json
 import os
 import datetime
-
+import cogs.data.manage_cases as manageCases
 
 class Moderation(commands.Cog):
     def __init__(self, client):
@@ -18,23 +18,11 @@ class Moderation(commands.Cog):
             await ctx.send("No user specified!")
             return
 
-        os.chdir(r'C:\Users\mario\Python Projects\bot\cogs\data')
-        with open('caseCounts.json', 'r') as caseCounts:
-            cases = json.load(caseCounts)
-        banCase = int(cases['bans'])
-        kickCase= int(cases['kicks'])
-        banCase+=1
-            
-        with open('caseCounts.json', 'w') as updateCases:
-            cases = {
-                "bans": banCase,
-                "kicks": kickCase,
-                "lockdowns": 0
-            }
-            json.dump(cases, updateCases)
+        manageCases.getCases()
+        manageCases.updateCases()
 
         banEmbed = discord.Embed(
-            title = f"Ban case #{banCase}",
+            title = f"Ban case #{manageCases.getCases.banCase}",
             color=discord.Color.orange()
         )
         
@@ -47,33 +35,21 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.bot_has_guild_permissions(kick_members = True)
     async def kick(self, ctx, member: discord.Member = None, *, reason = " "):
+        manageCases = manageCases()
         if reason == " ":
             reason = "No reason given."
         elif not member:
             await ctx.send("No user specified.")
             return
         
-        os.chdir(r'C:\Users\mario\Python Projects\bot\cogs\data')
-        with open('caseCounts.json', 'r') as caseCounts:
-            cases = json.load(caseCounts)
-
-        kickCase = int(cases['kicks'])
-        banCase = int(cases['bans'])
-        kickCase+=1
-        
-        with open('caseCounts.json', 'w') as updateCases:
-            cases = {
-                "bans": banCase,
-                "kicks": kickCase,
-                "lockdowns": 0
-            }
-            json.dump(cases, updateCases)
-
-            kickEmbed = discord.Embed(
-            title = f"Kick case #{kickCase}",
-            color=discord.Color.orange()
+        manageCases.getCases()
+        manageCases.updateCases()
+            
+        kickEmbed = discord.Embed(
+        title = f"Kick case #{manageCases.getCases.kickCase}",
+        color=discord.Color.orange()
         )
-        
+
         kickEmbed.add_field(name=f"{member} has kicked.", value=" ", inline=False)
         kickEmbed.add_field(name=f"Reason:", value = reason, inline=True)
         kickEmbed.add_field(name=f"Kicked by:", value=ctx.author, inline=True)
@@ -82,4 +58,3 @@ class Moderation(commands.Cog):
                
 async def setup(client):
     await client.add_cog(Moderation(client))
-
