@@ -3,7 +3,7 @@ from discord.ext import commands
 import json
 import os
 import datetime
-import cogs.data.manage_cases as manageCases
+from manageCases import ManageCases
 
 class Moderation(commands.Cog):
     def __init__(self, client):
@@ -12,17 +12,18 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.bot_has_guild_permissions(ban_members = True)
     async def ban(self, ctx, member: discord.Member = None, *, reason = " "):
+        caseManger = ManageCases()
         if reason == " ":
             reason = "No reason given"
         elif not member:
             await ctx.send("No user specified!")
             return
 
-        manageCases.getCases()
-        manageCases.updateCases()
+        banCase, kickCase = caseManger.getCases(caseType="ban")
+        caseManger.updateCases(banCase,kickCase)
 
         banEmbed = discord.Embed(
-            title = f"Ban case #{manageCases.getCases.banCase}",
+            title = f"Ban case #{banCase}",
             color=discord.Color.orange()
         )
         
@@ -35,18 +36,18 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.bot_has_guild_permissions(kick_members = True)
     async def kick(self, ctx, member: discord.Member = None, *, reason = " "):
-        manageCases = manageCases()
+        caseManger = ManageCases()
         if reason == " ":
             reason = "No reason given."
         elif not member:
             await ctx.send("No user specified.")
             return
         
-        manageCases.getCases()
-        manageCases.updateCases()
+        banCase, kickCase = caseManger.getCases(caseType="kick")
+        caseManger.updateCases(banCase, kickCase)
             
         kickEmbed = discord.Embed(
-        title = f"Kick case #{manageCases.getCases.kickCase}",
+        title = f"Kick case #{kickCase}",
         color=discord.Color.orange()
         )
 

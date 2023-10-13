@@ -9,7 +9,7 @@ client = commands.Bot(intents=intents, command_prefix="?", description="I just g
 
 async def loadCogs():
     for fileName in os.listdir("./cogs"):
-        if fileName.endswith(".py"):
+        if fileName.endswith(".py") and fileName != "manageCases.py":
             await client.load_extension(f'cogs.{fileName[:-3]}')
             print(f"{fileName[:-3]} cog loaded!")
 
