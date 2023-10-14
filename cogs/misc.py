@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 import random
 from datetime import datetime
+import config
+import giphy_client
 
 class Misc(commands.Cog):
     def __init__(self, client):
@@ -22,8 +24,6 @@ class Misc(commands.Cog):
             await ctx.send("Please enter a valid number of sides.")
         elif sides == None:
             sides = 6
-        else:
-            sides == sides
         roll = random.randint(1, sides)
         rollEmbed = discord.Embed(
             title = "Your roll: ",
@@ -33,7 +33,7 @@ class Misc(commands.Cog):
         await ctx.send(embed=rollEmbed)
     
     @commands.command()
-    async def coinflip(self, ctx):
+    async def coinflip(self, ctx): 
         result = random.randint(1,10000)
         if result%2 == 0:
             await ctx.send("Heads!")
@@ -52,14 +52,6 @@ class Misc(commands.Cog):
         )
         eightballEmbed.add_field(name=question, value = responses[response], inline = True)
         await ctx.send(embed=eightballEmbed)
-
     
-
-
-
-        
-
-
-
 async def setup(client):
     await client.add_cog(Misc(client))

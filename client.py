@@ -13,11 +13,9 @@ async def loadCogs():
             await client.load_extension(f'cogs.{fileName[:-3]}')
             print(f"{fileName[:-3]} cog loaded!")
 
-
 @client.event
 async def on_ready():
     print("Client is running!")
     await loadCogs()
 
 client.run(token)
-

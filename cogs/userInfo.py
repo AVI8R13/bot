@@ -35,7 +35,7 @@ class UserInfo(commands.Cog):
         if not member:
             member = ctx.author
 
-        roles = [role.name for role in member.roles]
+        roles = [r.name for r in member.roles if r != ctx.guild.default_role]
         if len(roles) >= 30:
             roles = str("Too many to show.")
         else:
