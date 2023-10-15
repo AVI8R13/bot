@@ -8,8 +8,8 @@ To test this bot, you'll need to create a bot application on the Discord Develop
 
 1. Create a Discord Bot Application:
 
-   - Go to the [Discord Developer Portal](https://discord.com/developers/applications) and log in.
-   - Click on "New Application" to create a new application.
+   - Go to the [Discord Developer Portal](https://discord.com/developers/applications) and log in or create an account if you don't have one already.
+   - Click on "New Application" to create a new application. Make sure to give it an appropriate name.
    - Go to the "Bot" tab on the left sidebar and click "Add Bot" to create a bot user.
    - Go to the "OAuth2" tab on the left sidebar and click "URL Generator".
 
@@ -20,12 +20,13 @@ To test this bot, you'll need to create a bot application on the Discord Develop
 
 3. Obtain the Bot Token:
 
-   - Under the "Token" section in the bot settings, click "Copy" to copy your bot's token.
+   - Under the "Token" section in the bot settings, click "Reset Token". You may have to enter your password or 2FA code to do this.
+   - Once your token has been revealed, click "Copy Token" to copy it to your clipboard.
 
 4. Replace the Token Variable:
-   - In your project code, locate the variable `BOT_TOKEN` and replace it with your bot's token.
+   - In your project code, find the variable `BOT_TOKEN` and replace it with your bot's token.
    - Alternatively, you can create a `.env` file in your project directory with the following content:
-     `BOT_TOKEN="your_token"`
+     `BOT_TOKEN="your_token"`, which is much more secure than storing it in the `client.py` file.
 
 ## Prerequisites
 
