@@ -2,8 +2,6 @@ import discord
 from discord.ext import commands
 import random
 from datetime import datetime
-import config
-import giphy_client
 
 class Misc(commands.Cog):
     def __init__(self, client):
@@ -20,13 +18,21 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def roll(self, ctx, sides = 6):
-        if sides == 0:
+        responses = [
+            ":game_die: ***Throws dice aggressively***",
+            ":game_die: Keep rollin', rollin', rollin', rollin' (uh)",
+            ":game_die: *Throws dice*",
+            ":game_die: You rolled a:",
+            ":game_die: Your roll:",
+            ":game_die: :game_die: :game_die:"
+            ]
+        if sides >= 0:
             await ctx.send("Please enter a valid number of sides.")
         elif sides == None:
             sides = 6
         roll = random.randint(1, sides)
         rollEmbed = discord.Embed(
-            title = "Your roll: ",
+            title = random.choice(responses),
             description = roll,
             color = discord.Color.og_blurple()
         )

@@ -1,8 +1,5 @@
 import discord
 from discord.ext import commands
-import json
-import os
-import datetime
 from manageCases import ManageCases
 
 class Moderation(commands.Cog):
@@ -34,6 +31,7 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(kick_members = True)
     async def kick(self, ctx, member: discord.Member = None, *, reason = " "):
+        id = ctx.message.guild.id
         caseManger = ManageCases()
         if member is None:
             await ctx.send("No member specified")
@@ -41,8 +39,8 @@ class Moderation(commands.Cog):
         elif reason == " ":
             reason = "No reason specified"
         
-        banCase, kickCase = caseManger.getCases(caseType="kick")
-        caseManger.updateCases(banCase, kickCase)
+        banCase, kickCase = caseManger.getCases(caseType="kick", serverID=id)
+        caseManger.updateCases(banCase, kickCase, serverID=id)
             
         kickEmbed = discord.Embed(
         title = f"Kick case #{kickCase}",
