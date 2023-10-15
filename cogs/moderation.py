@@ -18,6 +18,8 @@ class Moderation(commands.Cog):
 
         banCase, kickCase= caseManger.getCases(caseType="ban", serverID= id)
         caseManger.updateCases(banCase, kickCase)
+        caseManger.logCases(serverID=id, member=member, caseType="ban", reason = reason, banCase=banCase, kickCase= kickCase)
+
 
         banEmbed = discord.Embed(
             title = f"Ban case #{banCase}",
@@ -42,6 +44,7 @@ class Moderation(commands.Cog):
         
         banCase, kickCase = caseManger.getCases(caseType="kick", serverID=id)
         caseManger.updateCases(banCase, kickCase, serverID=id)
+        caseManger.logCases(serverID=id, member=member, caseType="kick", reason = reason, banCase=banCase, kickCase= kickCase)
             
         kickEmbed = discord.Embed(
         title = f"Kick case #{kickCase}",

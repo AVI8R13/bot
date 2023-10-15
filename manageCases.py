@@ -34,4 +34,23 @@ class ManageCases:
             }
             json.dump(cases, updateCases)
 
-
+    def logCases(self, serverID, member, caseType, reason, banCase, kickCase):
+        if caseType == "ban":
+            case = f"ban{banCase}"
+        elif caseType == "kick":
+            case = f"kick{kickCase}"
+        else:
+            return  
+        caseData = {
+            "Case": case,
+            "Member": str(member),
+            "Reason": reason
+        }
+        try:
+            with open(f'data/{serverID}_Cases.json', 'r') as logCases:
+                cases = json.load(logCases)
+        except (FileNotFoundError, json.JSONDecodeError):
+            cases = []
+        cases.append(caseData)
+        with open(f'data/{serverID}_Cases.json', 'a') as logCases:
+            json.dump(cases, logCases, indent=4)  
