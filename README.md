@@ -32,7 +32,7 @@ To use this bot, you'll need to create a bot application on the Discord Develope
 
 5. Run the bot:
    - Run the `client.py` file in your ide/text editor of choice
-   - If you've set up the bot correctl, you should see 'Client is running!' in your terminal.
+   - If you've set up the bot correctly, you should see 'Client is running!' in your terminal and the bot will be online.
 
 ## Prerequisites
 
