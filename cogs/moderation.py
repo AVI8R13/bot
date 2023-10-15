@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from manageCases import ManageCases
+import json
 
 class Moderation(commands.Cog):
     def __init__(self, client):
@@ -55,6 +56,31 @@ class Moderation(commands.Cog):
         kickEmbed.add_field(name=f"Kicked by:", value=ctx.author, inline=True)
         await ctx.send(embed = kickEmbed)
         await member.kick(reason=reason)
+
+
+    @commands.command()
+    @commands.has_guild_permissions(administrator=True)
+    async def getcase(self, ctx, search):
+        id = ctx.guild.id
+        result = None
+
+        with open(f'data/{id}_Cases.json', 'r') as cases:
+            data = json.load(cases)
+            for case in data:
+                if "Case" in case and case["Case"] == search or "Member" in case and case["Member"] == search:
+                    result = case
+
+        if result is not None:
+            caseEmbed = discord.Embed(
+                title=f"{result['Member']}'s {result['Case'][:-2]} case",
+                color = discord.Color.blue()
+            )
+            caseEmbed.add_field(name="Case:", value=result["Case"])
+            caseEmbed.add_field(name="Reason:", value=result["Reason"])
+            await ctx.send(embed=caseEmbed)
+        else:
+            await ctx.send("Case not found")
+
     
 async def setup(client):
     await client.add_cog(Moderation(client))
