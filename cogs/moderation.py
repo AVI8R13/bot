@@ -17,9 +17,9 @@ class Moderation(commands.Cog):
         elif reason == " ":
             reason = "No reason specified"
 
-        banCase, kickCase= caseManger.getCases(caseType="ban", serverID= id)
+        banCase, kickCase, warnCase = caseManger.getCases(caseType="ban", serverID= id)
         caseManger.updateCases(banCase, kickCase)
-        caseManger.logCases(serverID=id, member=member, caseType="ban", reason = reason, banCase=banCase, kickCase= kickCase)
+        caseManger.logCases(serverID=id, member=member, caseType="ban", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase)
 
 
         banEmbed = discord.Embed(
@@ -43,9 +43,9 @@ class Moderation(commands.Cog):
         elif reason == " ":
             reason = "No reason specified"
         
-        banCase, kickCase = caseManger.getCases(caseType="kick", serverID=id)
-        caseManger.updateCases(banCase, kickCase, serverID=id)
-        caseManger.logCases(serverID=id, member=member, caseType="kick", reason = reason, banCase=banCase, kickCase= kickCase)
+        banCase, kickCase, warnCase = caseManger.getCases(caseType="kick", serverID=id)
+        caseManger.updateCases(banCase, kickCase, warnCase, serverID=id)
+        caseManger.logCases(serverID=id, member=member, caseType="kick", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase)
             
         kickEmbed = discord.Embed(
         title = f"Kick case #{kickCase}",
@@ -56,7 +56,30 @@ class Moderation(commands.Cog):
         kickEmbed.add_field(name=f"Kicked by:", value=ctx.author, inline=True)
         await ctx.send(embed = kickEmbed)
         await member.kick(reason=reason)
+    
+    @commands.command()
+    @commands.has_guild_permissions(kick_members=True)
+    async def warn(self, ctx, member: discord.Member = None, *, reason= " "):
+        id = ctx.message.guild.id
+        caseManager = ManageCases()
+        if member is None:
+            await ctx.send("No member specified")
+            return
+        elif reason == " ":
+            reason = "No reason specified"
 
+        banCase, kickCase, warnCase = caseManager.getCases(caseType="warn", serverID=id)
+        caseManager.updateCases(banCase, kickCase, warnCase, serverID=id)
+        caseManager.logCases(serverID=id, member=member, caseType="warn", reason=reason, banCase=banCase, kickCase=kickCase, warnCase=warnCase)
+      
+        warnEmbed = discord.Embed(
+        title = f"Warn case #{warnCase}",
+        color=discord.Color.orange()
+        )
+        warnEmbed.add_field(name=f"{member} has been warned.", value=" ", inline=False)
+        warnEmbed.add_field(name=f"Reason:", value = reason, inline=True)
+        warnEmbed.add_field(name=f"Warned by:", value=ctx.author, inline=True)
+        await ctx.send(embed = warnEmbed)
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
@@ -81,6 +104,5 @@ class Moderation(commands.Cog):
         else:
             await ctx.send("Case not found")
 
-    
 async def setup(client):
     await client.add_cog(Moderation(client))
