@@ -31,8 +31,9 @@ To use this bot, you'll need to create a bot application on the Discord Develope
      `BOT_TOKEN="your_token"`, which is much more secure than storing it in the `client.py` file.
 
 5. Run the bot:
+   - Create a `data` folder in your project directory.
    - Run the `client.py` file in your ide/text editor of choice
-   - If you've set up the bot correctl, you should see 'Client is running!' in your terminal.
+   - If you've set up the bot correctly, you should see 'Client is running!' in your terminal and the bot will be online.
 
 ## Prerequisites
 
