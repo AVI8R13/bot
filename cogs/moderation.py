@@ -9,13 +9,14 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(ban_members = True)
     async def ban(self, ctx, member: discord.Member = None, *, reason = " "):
+        id = ctx.message.guild.id
         caseManger = ManageCases()
         if member is None:
             await ctx.send("No member specified")
         elif reason == " ":
             reason = "No reason specified"
 
-        banCase, kickCase= caseManger.getCases(caseType="ban")
+        banCase, kickCase= caseManger.getCases(caseType="ban", serverID= id)
         caseManger.updateCases(banCase, kickCase)
 
         banEmbed = discord.Embed(

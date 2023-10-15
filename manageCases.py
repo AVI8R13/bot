@@ -11,11 +11,12 @@ class ManageCases:
             with open(f'data/{serverID}_caseCounts.json', 'r') as caseCounts:
                 cases = json.load(caseCounts)
         except FileNotFoundError:
-            caseCounts = open(f'data/{serverID}_caseCounts.json', 'x')
-            caseCounts.write('{"bans": 0, "kicks": 0}')
-            cases = json.load(caseCounts)
-            caseCounts.close()
-        
+            with open(f'data/{serverID}_caseCounts.json', 'w') as caseCounts:
+                template = {"bans": 0, "kicks": 0}            
+                json.dump(template, caseCounts)
+            with open(f'data/{serverID}_caseCounts.json') as caseCounts:
+                cases = json.load(caseCounts)
+
         banCase = int(cases['bans'])
         kickCase = int(cases['kicks'])
         if caseType == "ban":
@@ -26,10 +27,10 @@ class ManageCases:
         return banCase, kickCase,
 
     def updateCases(self, banCase, kickCase, serverID): 
-        with open(f'data/{serverID}_caseCounts.json', 'w') as updateCases: #dumps new case data
+        with open(f'data/{serverID}_caseCounts.json', 'w') as updateCases: 
             cases = {
                 "bans": banCase,
-                "kicks": kickCase,
+                "kicks": kickCase, 
             }
             json.dump(cases, updateCases)
 
