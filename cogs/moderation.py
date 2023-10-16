@@ -103,6 +103,6 @@ class Moderation(commands.Cog):
             await ctx.send(embed=caseEmbed)
         else:
             await ctx.send("Case not found")
-
+      
 async def setup(client):
     await client.add_cog(Moderation(client))
