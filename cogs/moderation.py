@@ -61,6 +61,7 @@ class Moderation(commands.Cog):
     @commands.has_guild_permissions(kick_members=True)
     async def warn(self, ctx, member: discord.Member = None, *, reason= " "):
         id = ctx.message.guild.id
+        userID = ctx.message.member.id
         caseManager = ManageCases()
         if member is None:
             await ctx.send("No member specified")
@@ -71,7 +72,8 @@ class Moderation(commands.Cog):
         banCase, kickCase, warnCase = caseManager.getCases(caseType="warn", serverID=id)
         caseManager.updateCases(banCase, kickCase, warnCase, serverID=id)
         caseManager.logCases(serverID=id, member=member, caseType="warn", reason=reason, banCase=banCase, kickCase=kickCase, warnCase=warnCase)
-      
+        caseManager.logUserWarns(userID=userID, serverID=id, member = member, reason = reason, userWarnCase='0')
+
         warnEmbed = discord.Embed(
         title = f"Warn case #{warnCase}",
         color=discord.Color.orange()
