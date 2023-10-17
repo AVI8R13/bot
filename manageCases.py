@@ -27,7 +27,7 @@ class ManageCases:
         elif caseType == "warn":
             warnCase+=1
 
-        return banCase, kickCase, warnCase
+        return banCase,   kickCase, warnCase
 
     def updateCases(self, banCase, kickCase, warnCase, serverID): 
         with open(f'data/{serverID}_caseCounts.json', 'w') as updateCases: 
@@ -59,20 +59,4 @@ class ManageCases:
         with open(f'data/{serverID}_Cases.json', 'w') as logCases:
             json.dump(cases, logCases, indent=4)
 
-    def logUserWarns(self, userID, serverID, member, reason):
-        data = {
-            "Warning": warnCase,
-            "Reason": reason,
-            "User Warnings": userWarnCase
-        }
-        try:
-            with open(f'data/{serverID}_{userID}_Warnings.json', 'r') as warnings:
-                userWarnings = json.load(warnings)
-                warnNumber = userWarnings["User Warnings"]
-        except (FileNotFoundError):
-            userWarnings = []
-        
-        userWarnings.append(data)
-        with open(f'data/{serverID}_{userID}_Warnings.json', 'w'):
-            json.dump(userWarnings, warnings)
 
