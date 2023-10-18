@@ -12,7 +12,7 @@ class ManageCases:
                 cases = json.load(caseCounts)
         except FileNotFoundError:
             with open(f'data/{serverID}_caseCounts.json', 'w') as caseCounts:
-                template = {"bans": 0, "kicks": 0, "warns": 0}            
+                template = {"bans": 0, "kicks": 0, "warns": 0, "lockdowns": 0}         
                 json.dump(template, caseCounts)
             with open(f'data/{serverID}_caseCounts.json') as caseCounts:
                 cases = json.load(caseCounts)
@@ -20,31 +20,37 @@ class ManageCases:
         banCase = int(cases['bans'])
         kickCase = int(cases['kicks'])
         warnCase = int(cases['warns'])
+        lockdownCase = int(cases['lockdowns'])
         if caseType == "ban":
             banCase+=1
         elif caseType == "kick":
             kickCase+=1
         elif caseType == "warn":
             warnCase+=1
+        elif caseType == "lockdown":
+            lockdownCase+=1
 
-        return banCase,   kickCase, warnCase
+        return banCase, kickCase, warnCase, lockdownCase
 
-    def updateCases(self, banCase, kickCase, warnCase, serverID): 
+    def updateCases(self, banCase, kickCase, warnCase, lockdownCase, serverID): 
         with open(f'data/{serverID}_caseCounts.json', 'w') as updateCases: 
             cases = {
                 "bans": banCase,
                 "kicks": kickCase,
                 "warns": warnCase, 
+                "lockdowns": lockdownCase
             }
             json.dump(cases, updateCases)
 
-    def logCases(self, serverID, member, caseType, reason, banCase, kickCase, warnCase):
+    def logCases(self, serverID, member, caseType, reason, banCase, kickCase, warnCase, lockdownCase):
         if caseType == "ban":
             case = f"ban{banCase}"
         elif caseType == "kick":
             case = f"kick{kickCase}"
         elif caseType == "warn":
             case = f"warn{warnCase}"
+        elif caseType == "lockdown":
+            case = f"lockdown{lockdownCase}"
         caseData = {
             "Case": case,
             "Member": str(member),
