@@ -86,20 +86,23 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_guild_permission(kick_members=True)
     async def lockdown(self, ctx, *,reason = " "):
+        caseManager = ManageCases()
+        member = ctx.author
         if reason == " ":
             reason = "No reason specified."
-        role = guild.default_role
+        role = discord.Guild.default_role
         await role.edit(permissions=discord.permissions(send_messages = "False"))
-        banCase, kickCse, warnCase, lockdownCase = caseManager.getCases(caseType = "lockdown", serverID = id)
+        banCase, kickCase, warnCase, lockdownCase = caseManager.getCases(caseType = "lockdown", serverID = id)
         caseManager.updateCases(banCase, kickCase, warnCase, lockdownCase, serverID = id)
-        caseManger.logCases(serverID=id, member=member, caseType="lockdown", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase)
+        caseManager.logCases(serverID=id, member=member, caseType="lockdown", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase)
         lockdownEmbed=discord.Embed(
             title= f"Lockdown Case #{lockdownCase}",
             color = discord.Colour.red()
         )
-        lockdownEmbed.add_field(name = f"{ctx.channel} has been locked down.", value = " ", inline =- False),
-        lockdownEmbed.add_field(name = "Reason:,", value=reason, inline=True),
-        lockdownEmbed.add_field(name = "Warned by:," value=ctx.author, inline=True)
+        lockdownEmbed.add_field(name = f"{ctx.channel} has been locked down.", value = " ", inline =- False)
+        lockdownEmbed.add_field(name = "Reason:,", value=reason, inline=True)
+        lockdownEmbed.add_field(name = "Warned by:,", value=ctx.author, inline=True)
+        
 
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
