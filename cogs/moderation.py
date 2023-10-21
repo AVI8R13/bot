@@ -84,7 +84,7 @@ class Moderation(commands.Cog):
         await ctx.send(embed = warnEmbed)
 
     @commands.command()
-    @commands.has_guild_permission(kick_members=True)
+    @commands.has_guild_permissions(kick_members=True)
     async def lockdown(self, ctx, *,reason = " "):
         caseManager = ManageCases()
         member = ctx.author
