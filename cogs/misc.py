@@ -3,6 +3,8 @@ from discord.ext import commands
 import random
 from datetime import datetime
 import qrcode
+import requests
+import config
 
 class Misc(commands.Cog):
     def __init__(self, client):
@@ -65,6 +67,45 @@ class Misc(commands.Cog):
         img = qrcode.make(url)
         img.save("qrcode.png")
         await ctx.send(f"QR code to {url}", file=discord.File("qrcode.png"))
+
+    @commands.command()
+    async def catfact(self, ctx):
+        url = "https://catfact.ninja/fact"
+        response = requests.get(url)
+        if response.status_code == 200:
+            fact=response.json()
+            response = fact["fact"]
+        else:
+            response = "Error getting cat fact :<"
+
+        catEmbed = discord.Embed(
+            title = "Cat Fact :cat:",
+            description=response,
+            color = discord.Color.yellow()
+        )
+        await ctx.send(embed=catEmbed)
+
+    @commands.command()
+    async def hug(self, ctx, member: discord.Member):
+        url = f"https://api.giphy.com/v1/gifs/random?api_key={config.giphyApiKey}&tag=anime+hug"
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            gif_url = data["data"]["url"]
+            await ctx.send(f"{ctx.author} hugs {member}! \n{gif_url}")
+        else:
+            await ctx.send("Failed to fetch a hug GIF.")
+
+    @commands.command()
+    async def kiss(self, ctx, member: discord.Member):
+        url = f"https://api.giphy.com/v1/gifs/random?api_key={config.giphyApiKey}&tag=anime+kiss"
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            gif_url = data["data"]["url"]
+            await ctx.send(f"{ctx.author} kisses {member}!\n{gif_url}")
+        else:
+            await ctx.send("Failed to fetch a kiss GIF.")
 
 async def setup(client):
     await client.add_cog(Misc(client))
