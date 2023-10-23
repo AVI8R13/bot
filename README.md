@@ -19,17 +19,22 @@ To use this bot, you'll need to create a bot application on the Discord Develope
    - For moderation commands to work, you must select "Kick Members" and "Ban Members" permissions. I will hopefully add more in the future.
    - Copy the URl under the scopes menue, paste it into a browser and select the server you want the bot to join.
 
-3. Obtain the Bot Token:
+3. Obtain the Bot Token and neccesary API keys:
 
    - Under the "Token" section in the bot settings, click "Reset Token". You may have to enter your password or 2FA code to do this.
    - Once your token has been revealed, click "Copy Token" to copy it to your clipboard.
+   - Go to the [Giphy Developer page](https://developers.giphy.com/) and create and account if you doint have one already.
+   - Head to your [Dashboard](https://developers.giphy.com/dashboard/) and select 'Create App'. Make sure to select the API option.
+   - Once you app as been created, double click your token to copy it to your clipboard.
 
 4. Replace the Token and other API variables:
 
-   - In your project code, find the variable `BOT_TOKEN` and replace it with your bot's token.
-   - Alternatively, you can create a `.env` file in your project directory with the following content:
-     `BOT_TOKEN="your_token"`, which is much more secure than storing it in the `client.py` file.
-   - To use commands that utilize Giphy, you will also need a Giphy API Key, which can be obtained from the [Giphy Developers Page](https://developers.giphy.com/)
+   - Create a `tokens.json` file in your project directory with the following content:
+     `{"BOT_TOKEN": "your_token",
+     "GIPHY_API_TOKEN":"your_giphy_api_key"}`,
+   - Replace 'your_token' with your bots token.
+   - Replace 'your_giphy_api_key' with your giphy API key.
+   - Make sure you do not remove the double quotations.
 
 5. Run the bot:
    - Create a `data` folder in your project directory.
