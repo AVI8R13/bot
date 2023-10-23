@@ -1,7 +1,3 @@
-# Introduction
-
-I made this bot to develop and demonstrate my programming skills. It is by no means perfect, and there is definately room for improvement.
-
 ## Getting Started
 
 To use this bot, you'll need to create a bot application on the Discord Developer Portal and obtain a bot token. Here's how to set it up:
