@@ -31,8 +31,10 @@ To use this bot, you'll need to create a bot application on the Discord Develope
 
    - Create a `tokens.json` file in your project directory with the following content:
      ```
-     {"BOT_TOKEN": "your_token",
-     "GIPHY_API_TOKEN":"your_giphy_api_key"}
+     {
+         "BOT_TOKEN": "your_token",
+      "GIPHY_API_TOKEN":"your_giphy_api_key"
+      }
      ```
    - Replace 'your_token' with your bots token.
    - Replace 'your_giphy_api_key' with your giphy API key.
