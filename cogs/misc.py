@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import random
 from datetime import datetime
+import qrcode
 
 class Misc(commands.Cog):
     def __init__(self, client):
@@ -59,5 +60,11 @@ class Misc(commands.Cog):
         eightballEmbed.add_field(name=question, value = responses[response], inline = True)
         await ctx.send(embed=eightballEmbed)
     
+    @commands.command()
+    async def qrcode(self, ctx, *, url):
+        img = qrcode.make(url)
+        img.save("qrcode.png")
+        await ctx.send(f"QR code to {url}", file=discord.File("qrcode.png"))
+
 async def setup(client):
     await client.add_cog(Misc(client))

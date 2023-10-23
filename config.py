@@ -1,6 +1,7 @@
-from dotenv import load_dotenv
-import os
+import json
 
-load_dotenv()
+with open("tokens.json", "r") as tokens:
+    tokenList = json.load(tokens)
 
-token = os.getenv("BOT_TOKEN")
+discordToken = tokenList['BOT_TOKEN']
+
