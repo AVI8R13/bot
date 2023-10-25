@@ -43,8 +43,8 @@ class Moderation(commands.Cog):
         elif reason == " ":
             reason = "No reason specified"
         
-        banCase, kickCase, warnCase, lockdownCase = caseManger.getCases(caseType="kick", serverID=id)
-        caseManger.updateCases(banCase, kickCase, warnCase, lockdownCase, serverID=id)
+        banCase, kickCase, warnCase,= caseManger.getCases(caseType="kick", serverID=id)
+        caseManger.updateCases(banCase, kickCase, warnCase, serverID=id)
         caseManger.logCases(serverID=id, member=member, caseType="kick", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase)
             
         kickEmbed = discord.Embed(
@@ -61,7 +61,7 @@ class Moderation(commands.Cog):
     @commands.has_guild_permissions(kick_members=True)
     async def warn(self, ctx, member: discord.Member = None, *, reason= " "):
         id = ctx.message.guild.id
-        userID = ctx.message.member.id
+        userID = member.id
         caseManager = ManageCases()
         if member is None:
             await ctx.send("No member specified")
@@ -72,7 +72,6 @@ class Moderation(commands.Cog):
         banCase, kickCase, warnCase = caseManager.getCases(caseType="warn", serverID=id)
         caseManager.updateCases(banCase, kickCase, warnCase, serverID=id)
         caseManager.logCases(serverID=id, member=member, caseType="warn", reason=reason, banCase=banCase, kickCase=kickCase, warnCase=warnCase)
-        caseManager.logUserWarns(userID=userID, serverID=id, member = member, reason = reason, userWarnCase='0')
 
         warnEmbed = discord.Embed(
         title = f"Warn case #{warnCase}",
@@ -89,11 +88,15 @@ class Moderation(commands.Cog):
         id = ctx.guild.id
         result = None
 
-        with open(f'data/{id}_Cases.json', 'r') as cases:
-            data = json.load(cases)
-            for case in data:
-                if "Case" in case and case["Case"] == search or "Member" in case and case["Member"] == search:
-                    result = case
+        try:
+            with open(f'data/{id}_Cases.json', 'r') as cases:
+                data = json.load(cases)
+                for case in data:
+                    if "Case" in case and case["Case"] == search or "Member" in case and case["Member"] == search:
+                        result = case
+        except FileNotFoundError:
+            await ctx.send("No logs found for this server.")
+            return
 
         if result is not None:
             caseEmbed = discord.Embed(
