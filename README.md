@@ -1,7 +1,3 @@
-# Introduction
-
-I made this bot to develop and demonstrate my programming skills. It is by no means perfect, and there is definately room for improvement.
-
 ## Getting Started
 
 To use this bot, you'll need to create a bot application on the Discord Developer Portal and obtain a bot token. Here's how to set it up:
@@ -33,8 +29,8 @@ To use this bot, you'll need to create a bot application on the Discord Develope
      ```
      {
          "BOT_TOKEN": "your_token",
-      "GIPHY_API_TOKEN":"your_giphy_api_key"
-      }
+         "GIPHY_API_TOKEN":"your_giphy_api_key"
+     }
      ```
    - Replace 'your_token' with your bots token.
    - Replace 'your_giphy_api_key' with your giphy API key.
