@@ -92,6 +92,7 @@ class Misc(commands.Cog):
         if response.status_code == 200:
             data = response.json()
             gif_url = data["data"]["url"]
+            print(gif_url)
             await ctx.send(f"{ctx.author} hugs {member}! \n{gif_url}")
         else:
             await ctx.send("Failed to fetch a hug GIF.")
@@ -106,6 +107,11 @@ class Misc(commands.Cog):
             await ctx.send(f"{ctx.author} kisses {member}!\n{gif_url}")
         else:
             await ctx.send("Failed to fetch a kiss GIF.")
+
+    @commands.command()
+    async def eval(self, ctx, *, statement):
+        response = str(eval(statement))
+        await ctx.send(response)
 
 async def setup(client):
     await client.add_cog(Misc(client))
