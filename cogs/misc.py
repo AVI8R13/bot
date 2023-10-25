@@ -5,19 +5,29 @@ from datetime import datetime
 import qrcode
 import requests
 import config
+from ping3 import ping
 
 class Misc(commands.Cog):
     def __init__(self, client):
         self.client = client
     
     @commands.command()
-    async def ping(self, ctx):
-        pingEmbed = discord.Embed(
-            title = "Pong!  :ping_pong:",
-            description = f"Responded in {round(self.client.latency*1000)} ms!",
-            color=discord.Color.blue()
-        )
-        await ctx.send(embed = pingEmbed)
+    async def ping(self, ctx, *, target = "Bot"):
+        latency = None
+        if target == "Bot":
+            latency = self.client.latency
+        else:
+            latency = ping(target)
+
+        if latency < 0:
+            pingEmbed = discord.Embed(
+                title = "Pong!  :ping_pong:",
+                description = f"{target} responded in {round(latency*1000)} ms!",
+                color=discord.Color.blue()
+            )
+            await ctx.send(embed = pingEmbed)
+        else:
+            await ctx.send(f"{target} is unreachable, or is not a valid url.")
 
     @commands.command()
     async def roll(self, ctx, sides = 6):
