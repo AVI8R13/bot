@@ -7,6 +7,7 @@ import requests
 import config
 from ping3 import ping
 
+
 class Misc(commands.Cog):
     def __init__(self, client):
         self.client = client

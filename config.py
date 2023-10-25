@@ -5,4 +5,3 @@ with open("tokens.json", "r") as tokens:
 
 discordToken = tokenList['BOT_TOKEN']
 giphyApiKey = tokenList['GIPHY_API_KEY']
-
