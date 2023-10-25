@@ -26,7 +26,8 @@ class UserInfo(commands.Cog):
         
         createdEmbed = discord.Embed(
             title = f"{member}'s account creation date!",
-            description = f"{member} joined discord on {created.strftime('%x')}"
+            description = f"{member} joined discord on {created.strftime('%x')}",
+            color = discord.Color.dark_blue()
         )
         await ctx.send(embed=createdEmbed)
 
@@ -41,8 +42,9 @@ class UserInfo(commands.Cog):
         else:
             roles = [r.mention for r in member.roles if r != ctx.guild.default_role]
         whoisEmbed = discord.Embed(
+            title = member,
+            color = discord.Color.blurple()
         )
-        whoisEmbed.set_author(name=ctx.author)
         whoisEmbed.set_thumbnail(url = member.avatar)
         whoisEmbed.add_field(name = "Joined: ", value = member.joined_at.strftime('%Y-%m-%d'), inline=True)
         whoisEmbed.add_field(name = "Registered", value = member.created_at.strftime('%Y-%m-%d'), inline=True)
