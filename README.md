@@ -49,4 +49,5 @@ Before running the bot, make sure you have the necessary libraries installed. Yo
 pip install discord.py
 pip install qrcode
 pip install requests
+pip install ping3
 ```
