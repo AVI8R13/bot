@@ -100,7 +100,7 @@ class Moderation(commands.Cog):
 
         if result is not None:
             caseEmbed = discord.Embed(
-                title=f"{result['Member']}'s {result['Case'][:-2]} case",
+                title=f"{result['Member']}'s {result['Case'][:-1]} case",
                 color = discord.Color.blue()
             )
             caseEmbed.add_field(name="Case:", value=result["Case"])
@@ -108,6 +108,50 @@ class Moderation(commands.Cog):
             await ctx.send(embed=caseEmbed)
         else:
             await ctx.send("Case not found")
-      
+
+    @commands.command()
+    @commands.has_guild_permissions(administrator=True)
+    async def purge(self, ctx, amount = 25, *, reason= None):
+        if reason is None:
+            reason = "No reason specified"
+        await ctx.channel.purge(limit = amount)
+        purgeEmbed = discord.Embed(
+            title = f"Purged {amount} messages",
+            color = discord.Color.orange()
+        )
+        purgeEmbed.add_field(name=f"Reason:", value = reason, inline=True)
+        purgeEmbed.add_field(name=f"Purged by:", value = ctx.author, inline=True)
+        await ctx.send(embed=purgeEmbed)
+
+    @commands.command()
+    @commands.has_guild_permissions(administrator=True)
+    async def lockdown(self, ctx, *, reason= None):
+        if reason is None:
+            reason = "No reason specified"
+        lockdownEmbed = discord.Embed(
+            title = f"Locked down {ctx.channel.mention}",
+            color = discord.Color.orange()
+        )
+        lockdownEmbed.add_field(name=f"Reason:", value = reason, inline=True)
+        lockdownEmbed.add_field(name=f"Locked by:", value = ctx.author, inline=True)
+        await ctx.send(embed=lockdownEmbed)
+        await ctx.channel.set_permissions(ctx.guild.default_role,send_messages=False)
+
+    @commands.command()
+    @commands.has_guild_permissions(administrator=True)
+    async def unlock(self, ctx, *, reason= None):
+        if reason is None:
+            reason = "No reason specified"
+        lockdownEmbed = discord.Embed(
+            title = f"{ctx.channel.mention} has been unlocked!",
+            color = discord.Color.orange()
+        )
+        lockdownEmbed.add_field(name=f"Reason:", value = reason, inline=True)
+        lockdownEmbed.add_field(name=f"Unlocked by:", value = ctx.author, inline=True)
+        await ctx.send(embed=lockdownEmbed)
+        await ctx.channel.set_permissions(ctx.guild.default_role,send_messages=False)
+
+
+
 async def setup(client):
     await client.add_cog(Moderation(client))
