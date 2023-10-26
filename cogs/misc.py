@@ -123,6 +123,6 @@ class Misc(commands.Cog):
     async def eval(self, ctx, *, statement):
         response = str(eval(statement))
         await ctx.send(response)
-
+        
 async def setup(client):
     await client.add_cog(Misc(client))
