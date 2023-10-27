@@ -102,11 +102,10 @@ class Misc(commands.Cog):
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()
-            gif_url = data["data"]["url"]
-            print(gif_url)
-            await ctx.send(f"{ctx.author} hugs {member}! \n{gif_url}")
+            url = data["data"]["url"]
+            await ctx.send(f"{ctx.author} hugs {member}! \n{url}")
         else:
-            await ctx.send("Failed to fetch a hug GIF.")
+            await ctx.send("Failed to fetch a hug gif.")
 
     @commands.command()
     async def kiss(self, ctx, member: discord.Member):
@@ -114,10 +113,10 @@ class Misc(commands.Cog):
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()
-            gif_url = data["data"]["url"]
-            await ctx.send(f"{ctx.author} kisses {member}!\n{gif_url}")
+            url = data["data"]["url"]
+            await ctx.send(f"{ctx.author} kisses {member}!\n{url}")
         else:
-            await ctx.send("Failed to fetch a kiss GIF.")
+            await ctx.send("Failed to fetch a kiss gif.")
 
     @commands.command()
     async def eval(self, ctx, *, statement):

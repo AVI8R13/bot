@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 
 class ManageCases:
     def __init__(self):
@@ -41,6 +42,7 @@ class ManageCases:
             json.dump(cases, updateCases)
 
     def logCases(self, serverID, member, caseType, reason, banCase, kickCase, warnCase):
+        time = datetime.now()
         if caseType == "ban":
             case = f"ban{banCase}"
         elif caseType == "kick":
@@ -50,7 +52,9 @@ class ManageCases:
         caseData = {
             "Case": case,
             "Member": str(member),
-            "Reason": reason
+            "Reason": reason,
+            "Date": time.strftime("%m/%d/%Y"),
+            "Time": time.strftime("%H:%M:%S")
         }
         try:
             with open(f'data/{serverID}_Cases.json', 'r') as logCases:

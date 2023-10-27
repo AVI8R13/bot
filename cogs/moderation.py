@@ -103,8 +103,10 @@ class Moderation(commands.Cog):
                 title=f"{result['Member']}'s {result['Case'][:-1]} case",
                 color = discord.Color.blue()
             )
-            caseEmbed.add_field(name="Case:", value=result["Case"])
-            caseEmbed.add_field(name="Reason:", value=result["Reason"])
+            caseEmbed.add_field(name="Case", value=result["Case"], inline=True)
+            caseEmbed.add_field(name="Reason", value=result["Reason"], inline=True)
+            caseEmbed.add_field(name="Date", value=result["Date"], inline=False)
+            caseEmbed.add_field(name="Time", value=result["Time"], inline=False)
             await ctx.send(embed=caseEmbed)
         else:
             await ctx.send("Case not found")
