@@ -38,7 +38,8 @@ class Misc(commands.Cog):
             ":game_die: *Throws dice*",
             ":game_die: You rolled a:",
             ":game_die: Your roll:",
-            ":game_die: :game_die: :game_die:"
+            ":game_die: :game_die: :game_die:",
+            ":game_die: haha dice go brrr"
             ]
         if sides >= 0:
             await ctx.send("Please enter a valid number of sides.")

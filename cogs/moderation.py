@@ -17,9 +17,9 @@ class Moderation(commands.Cog):
         elif reason is None:
             reason = "No reason specified"
 
-        banCase, kickCase, warnCase = caseManger.getCases(caseType="ban", serverID= id)
-        caseManger.updateCases(banCase, kickCase)
-        caseManger.logCases(serverID=id, member=member, caseType="ban", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase)
+        banCase, kickCase, warnCase, lockdownCase = caseManger.getCases(caseType="ban", serverID= id)
+        caseManger.updateCases(banCase, kickCase, warnCase, lockdownCase)
+        caseManger.logCases(serverID=id, member=member, caseType="ban", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase, lockdownCase=lockdownCase)
 
 
         banEmbed = discord.Embed(
@@ -43,9 +43,9 @@ class Moderation(commands.Cog):
         elif reason is None:
             reason = "No reason specified"
         
-        banCase, kickCase, warnCase,= caseManger.getCases(caseType="kick", serverID=id)
-        caseManger.updateCases(banCase, kickCase, warnCase, serverID=id)
-        caseManger.logCases(serverID=id, member=member, caseType="kick", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase)
+        banCase, kickCase, warnCase, lockdownCase = caseManger.getCases(caseType="kick", serverID=id)
+        caseManger.updateCases(banCase, kickCase, warnCase, lockdownCase, serverID=id)
+        caseManger.logCases(serverID=id, member=member, caseType="kick", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase, lockdownCase=lockdownCase)
             
         kickEmbed = discord.Embed(
         title = f"Kick case #{kickCase}",
@@ -69,9 +69,9 @@ class Moderation(commands.Cog):
         elif reason is None:
             reason = "No reason specified"
 
-        banCase, kickCase, warnCase = caseManager.getCases(caseType="warn", serverID=id)
-        caseManager.updateCases(banCase, kickCase, warnCase, serverID=id)
-        caseManager.logCases(serverID=id, member=member, caseType="warn", reason=reason, banCase=banCase, kickCase=kickCase, warnCase=warnCase)
+        banCase, kickCase, warnCase, lockdownCase = caseManager.getCases(caseType="warn", serverID=id)
+        caseManager.updateCases(banCase, kickCase, warnCase, lockdownCase, serverID=id)
+        caseManager.logCases(serverID=id, member=member, caseType="warn", reason=reason, banCase=banCase, kickCase=kickCase, warnCase=warnCase, lockdownCase=lockdownCase)
 
         warnEmbed = discord.Embed(
         title = f"Warn case #{warnCase}",
@@ -128,10 +128,17 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.has_guild_permissions(administrator=True)
     async def lockdown(self, ctx, *, reason= None):
+        id = ctx.message.guild.id
+        caseManager = ManageCases()
         if reason is None:
             reason = "No reason specified"
+
+        banCase, kickCase, warnCase, lockdownCase = caseManager.getCases(caseType="warn", serverID=id)
+        caseManager.updateCases(banCase, kickCase, warnCase, lockdownCase, serverID=id)
+        caseManager.logCases(serverID=id, member=member, caseType="warn", reason=reason, banCase=banCase, kickCase=kickCase, warnCase=warnCase, lockdownCase=lockdownCase)
+        
         lockdownEmbed = discord.Embed(
-            title = f"Locked down {ctx.channel.mention}",
+            title = f"{ctx.channel.mention} has been locked!",
             color = discord.Color.orange()
         )
         lockdownEmbed.add_field(name=f"Reason:", value = reason, inline=True)
@@ -152,8 +159,6 @@ class Moderation(commands.Cog):
         lockdownEmbed.add_field(name=f"Unlocked by:", value = ctx.author, inline=True)
         await ctx.send(embed=lockdownEmbed)
         await ctx.channel.set_permissions(ctx.guild.default_role,send_messages=False)
-
-
 
 async def setup(client):
     await client.add_cog(Moderation(client))
