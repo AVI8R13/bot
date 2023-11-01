@@ -9,12 +9,12 @@ class Moderation(commands.Cog):
 
     @commands.command()
     @commands.has_guild_permissions(ban_members = True)
-    async def ban(self, ctx, member: discord.Member = None, *, reason = " "):
+    async def ban(self, ctx, member: discord.Member = None, *, reason = None):
         id = ctx.message.guild.id
         caseManger = ManageCases()
         if member is None:
             await ctx.send("No member specified")
-        elif reason == " ":
+        elif reason is None:
             reason = "No reason specified"
 
         banCase, kickCase, warnCase = caseManger.getCases(caseType="ban", serverID= id)
@@ -34,13 +34,13 @@ class Moderation(commands.Cog):
         
     @commands.command()
     @commands.has_guild_permissions(kick_members = True)
-    async def kick(self, ctx, member: discord.Member = None, *, reason = " "):
+    async def kick(self, ctx, member: discord.Member = None, *, reason = None):
         id = ctx.message.guild.id
         caseManger = ManageCases()
         if member is None:
             await ctx.send("No member specified")
             return
-        elif reason == " ":
+        elif reason is None:
             reason = "No reason specified"
         
         banCase, kickCase, warnCase,= caseManger.getCases(caseType="kick", serverID=id)
@@ -59,14 +59,14 @@ class Moderation(commands.Cog):
     
     @commands.command()
     @commands.has_guild_permissions(kick_members=True)
-    async def warn(self, ctx, member: discord.Member = None, *, reason= " "):
+    async def warn(self, ctx, member: discord.Member = None, *, reason = None):
         id = ctx.message.guild.id
         userID = member.id
         caseManager = ManageCases()
         if member is None:
             await ctx.send("No member specified")
             return
-        elif reason == " ":
+        elif reason is None:
             reason = "No reason specified"
 
         banCase, kickCase, warnCase = caseManager.getCases(caseType="warn", serverID=id)
