@@ -13,7 +13,7 @@ To use this bot, you'll need to create a bot application on the Discord Develope
 
    - Select "Bot" as a scope and select the required permissions. It must have the "Send Messages" permission as a minimum.
    - For moderation commands to work, you must select "Kick Members" and "Ban Members" permissions. I will hopefully add more in the future.
-   - Copy the URl under the scopes menue, paste it into a browser and select the server you want the bot to join.
+   - Copy the URL under the scopes menue, paste it into a browser and select the server you want the bot to join.
 
 3. Obtain the Bot Token and neccesary API keys:
 
