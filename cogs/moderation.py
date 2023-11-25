@@ -129,6 +129,7 @@ class Moderation(commands.Cog):
     @commands.has_guild_permissions(administrator=True)
     async def lockdown(self, ctx, *, reason= None):
         id = ctx.message.guild.id
+        member = ctx.author
         caseManager = ManageCases()
         if reason is None:
             reason = "No reason specified"
