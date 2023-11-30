@@ -4,7 +4,7 @@ import random
 from datetime import datetime
 import qrcode
 import requests
-import config
+import tokenConfig
 from ping3 import ping
 
 
@@ -99,7 +99,7 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def hug(self, ctx, member: discord.Member):
-        url = f"https://api.giphy.com/v1/gifs/random?api_key={config.giphyApiKey}&tag=anime+hug"
+        url = f"https://api.giphy.com/v1/gifs/random?api_key={tokenConfig.giphyApiKey}&tag=anime+hug"
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()
@@ -110,7 +110,7 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def kiss(self, ctx, member: discord.Member):
-        url = f"https://api.giphy.com/v1/gifs/random?api_key={config.giphyApiKey}&tag=anime+kiss"
+        url = f"https://api.giphy.com/v1/gifs/random?api_key={tokenConfig.giphyApiKey}&tag=anime+kiss"
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()

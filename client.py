@@ -1,9 +1,9 @@
 import discord
 from discord.ext import commands
-import config
+import tokenConfig
 import os
 
-token = config.discordToken
+token = tokenConfig.discordToken
 intents = discord.Intents.all()
 client = commands.Bot(intents=intents, command_prefix="?", description="I just got so emo I fell apart.")
 
