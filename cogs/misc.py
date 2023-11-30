@@ -4,7 +4,6 @@ import random
 from datetime import datetime
 import qrcode
 import requests
-
 from ping3 import ping
 
 
