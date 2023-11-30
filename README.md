@@ -25,7 +25,7 @@ To use this bot, you'll need to create a bot application on the Discord Develope
 
 4. Replace the Token and other API variables:
 
-   - Create a `tokens.json` file in your project directory with the following content:
+   - A `tokens.json` file shouldve been created with the following content, replace the palceholders with the relevent tokens/api keys.
      ```
      {
          "BOT_TOKEN": "your_token",
@@ -37,7 +37,6 @@ To use this bot, you'll need to create a bot application on the Discord Develope
    - Make sure you do not remove the double quotations.
 
 5. Run the bot:
-   - Create a `data` folder in your project directory.
    - Run the `client.py` file in your ide/text editor of choice
    - If you've set up the bot correctly, you should see 'Client is running!' in your terminal and the bot will be online.
 

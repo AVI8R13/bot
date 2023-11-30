@@ -2,10 +2,18 @@ import discord
 from discord.ext import commands
 import tokenConfig
 import os
+import json
 
-token = tokenConfig.discordToken
+
+token = tokenConfig.discordToken 
 intents = discord.Intents.all()
 client = commands.Bot(intents=intents, command_prefix="?", description="I just got so emo I fell apart.")
+
+def config():
+    if os.path.exists("data/") == False:
+        os.mkdir("data")
+        
+config()
 
 async def loadCogs():
     for fileName in os.listdir("./cogs"):
@@ -18,4 +26,7 @@ async def on_ready():
     print("Client is running!")
     await loadCogs()
 
-client.run(token)
+try:
+    client.run(token)
+except:
+    print("Plase paste your tokens and api keys in the tokens.json file")
