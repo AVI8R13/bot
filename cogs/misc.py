@@ -5,6 +5,7 @@ from datetime import datetime
 import qrcode
 import requests
 from ping3 import ping
+import config
 
 
 class Misc(commands.Cog):
