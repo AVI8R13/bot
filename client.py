@@ -2,8 +2,6 @@ import discord
 from discord.ext import commands
 import config
 import os
-import json
-
 
 token = config.discordToken 
 intents = discord.Intents.all()
