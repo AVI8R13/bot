@@ -4,7 +4,8 @@ from datetime import datetime
 
 class ManageCases:
     def __init__(self):
-        pass
+        if os.path.exists("data/") == False:
+            os.mkdir("data")
 
     def getCases(self, caseType, serverID):
 
