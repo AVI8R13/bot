@@ -28,3 +28,5 @@ try:
     client.run(token)
 except:
     print("Plase paste your tokens and api keys in the tokens.json file")
+
+#i use arch btw
