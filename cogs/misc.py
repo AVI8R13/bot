@@ -6,6 +6,8 @@ import qrcode
 import requests
 from ping3 import ping
 import config
+import aiohttp
+import json
 
 
 class Misc(commands.Cog):
@@ -109,15 +111,50 @@ class Misc(commands.Cog):
             await ctx.send("Failed to fetch a hug gif.")
 
     @commands.command()
+    async def hug(self, ctx, member: discord.Member):
+        session = aiohttp.ClientSession()
+        try:
+            url = f"https://api.giphy.com/v1/gifs/random?api_key={config.giphyApiKey}&tag=anime+hug"
+            response = await session.get(url)
+
+            if response.status == 200:
+                data = json.loads(await response.text())
+                gif_url = data["data"]["images"]["original"]["url"]
+                embed = discord.Embed(
+                    title=f"{ctx.author.display_name} hugs {member.display_name}!",
+                    color=discord.Color.pink()
+                )
+                embed.set_image(url=gif_url)
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send("Failed to fetch a kiss gif.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            await session.close()
+
+    @commands.command()
     async def kiss(self, ctx, member: discord.Member):
-        url = f"https://api.giphy.com/v1/gifs/random?api_key={config.giphyApiKey}&tag=anime+kiss"
-        response = requests.get(url)
-        if response.status_code == 200:
-            data = response.json()
-            url = data["data"]["url"]
-            await ctx.send(f"{ctx.author} kisses {member}!\n{url}")
-        else:
-            await ctx.send("Failed to fetch a kiss gif.")
+        session = aiohttp.ClientSession()
+        try:
+            url = f"https://api.giphy.com/v1/gifs/random?api_key={config.giphyApiKey}&tag=anime+kiss"
+            response = await session.get(url)
+
+            if response.status == 200:
+                data = json.loads(await response.text())
+                gif_url = data["data"]["images"]["original"]["url"]
+                embed = discord.Embed(
+                    title=f"{ctx.author.display_name} kisses {member.display_name}!",
+                    color=discord.Color.pink()
+                )
+                embed.set_image(url=gif_url)
+                await ctx.send(embed=embed)
+            else:
+                await ctx.send("Failed to fetch a kiss gif.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        finally:
+            await session.close()
 
     @commands.command()
     async def eval(self, ctx, *, statement):
