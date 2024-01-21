@@ -18,7 +18,7 @@ class Moderation(commands.Cog):
             reason = "No reason specified"
 
         banCase, kickCase, warnCase, lockdownCase = caseManger.getCases(caseType="ban", serverID= id)
-        caseManger.updateCases(banCase, kickCase, warnCase, lockdownCase)
+        caseManger.updateCases(banCase, kickCase, warnCase, lockdownCase, serverID=id)
         caseManger.logCases(serverID=id, member=member, caseType="ban", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase, lockdownCase=lockdownCase)
 
 
