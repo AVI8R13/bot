@@ -37,7 +37,7 @@ class UserInfo(commands.Cog):
             member = ctx.author
 
         roles = [r.name for r in member.roles if r != ctx.guild.default_role]
-        if len(roles) >= 30:
+        if len(roles) > 30:
             roles = str("Too many to show.")
         else:
             roles = [r.mention for r in member.roles if r != ctx.guild.default_role]

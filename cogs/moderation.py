@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 from manageCases import ManageCases
 import json
+from datetime import datetime
+from manageCasesNew import ManageDatabase
 
 class Moderation(commands.Cog):
     def __init__(self, client):
@@ -12,18 +14,33 @@ class Moderation(commands.Cog):
     async def ban(self, ctx, member: discord.Member = None, *, reason = None):
         id = ctx.message.guild.id
         caseManger = ManageCases()
+        cm = ManageDatabase()
         if member is None:
             await ctx.send("No member specified")
         elif reason is None:
             reason = "No reason specified"
+
+        caseInfo = {
+            "member": member,
+            "id": id,
+            "caseType": "ban",
+            "reason": reason,
+            "date": datetime.now().strftime("%m/%d/%Y"),
+            "time": datetime.now().strftime("%H:%M:%S")
+        }
+
+        cases = cm.getCases()
+        caseCount = cases["bans"]
 
         banCase, kickCase, warnCase, lockdownCase = caseManger.getCases(caseType="ban", serverID= id)
         caseManger.updateCases(banCase, kickCase, warnCase, lockdownCase, serverID=id)
         caseManger.logCases(serverID=id, member=member, caseType="ban", reason = reason, banCase=banCase, kickCase= kickCase, warnCase=warnCase, lockdownCase=lockdownCase)
 
 
+
+
         banEmbed = discord.Embed(
-            title = f"Ban case #{banCase}",
+            title = f"Ban case #{caseCount}",
             color=discord.Color.orange()
         )
         banEmbed.add_field(name=f"{member} has been banned.", value=" ", inline=False)
@@ -131,8 +148,6 @@ class Moderation(commands.Cog):
         id = ctx.message.guild.id
         member = ctx.author
         caseManager = ManageCases()
-        if reason is None:
-            reason = "No reason specified"
 
         banCase, kickCase, warnCase, lockdownCase = caseManager.getCases(caseType="warn", serverID=id)
         caseManager.updateCases(banCase, kickCase, warnCase, lockdownCase, serverID=id)

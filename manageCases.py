@@ -39,10 +39,9 @@ class ManageCases:
         with open(f'data/{serverID}_caseCounts.json', 'w') as updateCases: 
             cases = {
                 "bans": banCase,
-                "kicks": kickCase,
+                "kicks": kickCase,      
                 "warns": warnCase,
                 "lockdowns": lockdownCase
-
             }
             json.dump(cases, updateCases)
 
@@ -71,5 +70,3 @@ class ManageCases:
         cases.append(caseData)
         with open(f'data/{serverID}_Cases.json', 'w') as logCases:
             json.dump(cases, logCases, indent=4)
-
-
