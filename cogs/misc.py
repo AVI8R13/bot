@@ -16,13 +16,12 @@ class Misc(commands.Cog):
     
     @commands.command()
     async def ping(self, ctx, *, target = "Bot"):
-        latency = None
         if target == "Bot":
             latency = self.client.latency
         else:
             latency = ping(target)
 
-        if latency < 0:
+        if latency is not None and latency >= 0:
             pingEmbed = discord.Embed(
                 title = "Pong!  :ping_pong:",
                 description = f"{target} responded in {round(latency*1000)} ms!",
