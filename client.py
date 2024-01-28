@@ -33,7 +33,7 @@ async def load(ctx, extension):
                 await client.load_extension(f'cogs.{fileName[:-3]}')
         await ctx.send(f'Cogs loaded.')
     else:
-        client.load_extension(f'cogs.{extension}')
+        await client.load_extension(f'cogs.{extension}')
         await ctx.send(f'Cog {extension} loaded.')
 
 
@@ -45,7 +45,7 @@ async def unload(ctx, extension):
                 await client.unload_extension(f'cogs.{fileName[:-3]}')
         await ctx.send(f'Cogs unloaded.')
     else:
-        client.load_extension(f'cogs.{extension}')
+        await client.load_extension(f'cogs.{extension}')
         await ctx.send(f'Cog {extension} unloaded.')
 
 try:
