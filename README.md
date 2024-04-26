@@ -23,18 +23,24 @@ To use this bot, you'll need to create a bot application on the Discord Develope
    - Head to your [Dashboard](https://developers.giphy.com/dashboard/) and select 'Create App'. Make sure to select the API option.
    - Once you app as been created, double click your token to copy it to your clipboard.
 
-4. Replace the Token and other API variables:
-
-   - If you are on nixOS, run `nix-shell`, otherwise skip this step.
-   - Run the bot by running `python client.py`
-      - You may get `Import "discord.ext" could not be resolved` for some imports
-   - A `tokens.json` file shouldve been created with the following content, replace the palceholders with the relevent tokens/api keys.
-     ```
-     {
-         "BOT_TOKEN": "your_token",
-         "GIPHY_API_TOKEN":"your_giphy_api_key"
-     }
-     ```
+4. Set up the bot for use:
+   4.1 - NixOS only
+      - If you are on nixOS, run `nix-shell`, otherwise skip this step.
+      - You may get a error while tryign to import some libraries, for example :`Import "discord.ext" could not be resolved`. To fix this:
+         - Open your favourite terminal emulator
+         - `cd` to the directory in which you cloned this repository to
+         - run `nix-shell` to set up tte environment
+         - run your text editor of choice from the terminal, for example `vscode .`
+         
+   4.2 - Replace the Token and other API variables:
+      - Run the bot by running `python client.py`
+      - A `tokens.json` file shouldve been created with the following content, replace the palceholders with the relevent tokens/api keys.
+         ```
+         {
+            "BOT_TOKEN": "your_token",
+            "GIPHY_API_TOKEN":"your_giphy_api_key"
+         }
+         ```
    - Replace 'your_token' with your bots token.
    - Replace 'your_giphy_api_key' with your giphy API key.
    - Make sure you do not remove the double quotations.
