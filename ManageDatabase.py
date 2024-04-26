@@ -39,7 +39,7 @@ class ManageDatabase:
         conn.close()
 
     def getCases(self, serverID, caseType):
-        conn = sqlite3.connect("/home/eris/Programming/bot/db/serverCases.db")
+        conn = sqlite3.connect("db/serverCases.db")
         conn.row_factory = sqlite3.Row
         c = conn.cursor()
         cases = c.execute(f"SELECT * FROM serverCases WHERE serverID = {serverID}").fetchone()
