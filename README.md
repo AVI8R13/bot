@@ -27,6 +27,7 @@ To use this bot, you'll need to create a bot application on the Discord Develope
 
    - If you are on nixOS, run `nix-shell`, otherwise skip this step.
    - Run the bot by running `python client.py`
+      - You may get `Import "discord.ext" could not be resolved` for some imports
    - A `tokens.json` file shouldve been created with the following content, replace the palceholders with the relevent tokens/api keys.
      ```
      {
