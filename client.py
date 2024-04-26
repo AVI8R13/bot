@@ -53,4 +53,4 @@ try:
 except:
     print("Plase paste your tokens and api keys in the tokens.json file")
 
-#i use arch btw
+#i use nixOS btw
