@@ -48,9 +48,9 @@ async def unload(ctx, extension):
         await client.load_extension(f'cogs.{extension}')
         await ctx.send(f'Cog {extension} unloaded.')
 
-try:
-    client.run(token)
-except:
-    print("Plase paste your tokens and api keys in the tokens.json file")
+#try:
+client.run(token)
+#except:
+    #print("Plase paste your tokens and api keys in the tokens.json file")
 
 #i use nixOS btw

@@ -1,17 +1,17 @@
-#shell-nix
-#for use with nix-os
+#nix-shell
+#for use with nixOS, ignore if sing a differant operating system
 
 let
   pkgs = import <nixpkgs> {};
 in pkgs.mkShell {
   packages = [
-    (pkgs.python3.withPackages (python-pkgs: [
-      # select Python packages here
-      python-pkgs.discordpy
-      python-pkgs.qrcode
-      python-pkgs.aiohttp
-      python-pkgs.ping3
-      python-pkgs.requests
+    pkgs.python312
+    (pkgs.python312.withPackages (ps: with ps; [
+      qrcode
+      aiohttp
+      ping3
+      requests
+      discordpy
     ]))
   ];
 }
