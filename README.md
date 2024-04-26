@@ -52,6 +52,7 @@ To use this bot, you'll need to create a bot application on the Discord Develope
 
 ## Prerequisites
 
+If you are on nixOS, this step can be ignored so long as you followed step 4.1 correctly. 
 Before running the bot, make sure you have the necessary libraries installed. You can install them using pip:
 
 ```bash
