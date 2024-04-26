@@ -25,6 +25,8 @@ To use this bot, you'll need to create a bot application on the Discord Develope
 
 4. Replace the Token and other API variables:
 
+   - If you are on nixOS, run `nix-shell`, otherwise skip this step.
+   - Run the bot by running `python client.py`
    - A `tokens.json` file shouldve been created with the following content, replace the palceholders with the relevent tokens/api keys.
      ```
      {
