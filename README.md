@@ -24,6 +24,7 @@ To use this bot, you'll need to create a bot application on the Discord Develope
    - Once you app as been created, double click your token to copy it to your clipboard.
 
 4. Set up the bot for use:
+
    4.1 - NixOS only
       - If you are on nixOS, run `nix-shell`, otherwise skip this step.
       - You may get a error while tryign to import some libraries, for example :`Import "discord.ext" could not be resolved`. To fix this:
@@ -31,7 +32,7 @@ To use this bot, you'll need to create a bot application on the Discord Develope
          - `cd` to the directory in which you cloned this repository to
          - run `nix-shell` to set up tte environment
          - run your text editor of choice from the terminal, for example `vscode .`
-         
+
    4.2 - Replace the Token and other API variables:
       - Run the bot by running `python client.py`
       - A `tokens.json` file shouldve been created with the following content, replace the palceholders with the relevent tokens/api keys.
