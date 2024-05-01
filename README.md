@@ -2,20 +2,22 @@
 
 To use this bot, you'll need to create a bot application on the Discord Developer Portal and obtain a bot token. Here's how to set it up:
 
-1. Create a Discord Bot Application:
+1. If you have git installed, run `git clone https://github.com/aem2231/bot.git` otherwise download (this zip file)[https://github.com/aem2231/bot.git] and extract it to suitable directory.
+   
+2. Create a Discord Bot Application:
 
    - Go to the [Discord Developer Portal](https://discord.com/developers/applications) and log in or create an account if you don't have one already.
    - Click on "New Application" to create a new application. Make sure to give it an appropriate name.
    - Go to the "Bot" tab on the left sidebar and click "Add Bot" to create a bot user.
    - Go to the "OAuth2" tab on the left sidebar and click "URL Generator".
 
-2. Invite the bot to a server
+3. Invite the bot to a server
 
    - Select "Bot" as a scope and select the required permissions. It must have the "Send Messages" permission as a minimum.
    - For moderation commands to work, you must select "Kick Members" and "Ban Members" permissions. I will hopefully add more in the future.
    - Copy the URL under the scopes menue, paste it into a browser and select the server you want the bot to join.
 
-3. Obtain the Bot Token and neccesary API keys:
+4. Obtain the Bot Token and neccesary API keys:
 
    - Under the "Token" section in the bot settings, click "Reset Token". You may have to enter your password or 2FA code to do this.
    - Once your token has been revealed, click "Copy Token" to copy it to your clipboard.
@@ -23,17 +25,15 @@ To use this bot, you'll need to create a bot application on the Discord Develope
    - Head to your [Dashboard](https://developers.giphy.com/dashboard/) and select 'Create App'. Make sure to select the API option.
    - Once you app as been created, double click your token to copy it to your clipboard.
 
-4. Set up the bot for use:
+5. Set up the bot for use:
 
-   4.1 - NixOS only
-      - If you are on nixOS, run `nix-shell`, otherwise skip this step.
-      - You may get a error while tryign to import some libraries, for example :`Import "discord.ext" could not be resolved`. To fix this:
-         - Open your favourite terminal emulator
-         - `cd` to the directory in which you cloned this repository to
-         - run `nix-shell` to set up tte environment
+   5.1 - NixOS only
+      - Open your favourite terminal emulator, eg alacritty
+      - `cd` to the directory where you cloned this repo to
+      - run `nix develop`
          - run your text editor of choice from the terminal, for example `vscode .`
 
-   4.2 - Replace the Token and other API variables:
+   5.2 - Replace the Token and other API variables:
       - Run the bot by running `python client.py`
       - A `tokens.json` file shouldve been created with the following content, replace the palceholders with the relevent tokens/api keys.
          ```
@@ -46,7 +46,7 @@ To use this bot, you'll need to create a bot application on the Discord Develope
    - Replace 'your_giphy_api_key' with your giphy API key.
    - Make sure you do not remove the double quotations.
 
-5. Run the bot:
+6. Run the bot:
    - Run the `client.py` file in your ide/text editor of choice
    - If you've set up the bot correctly, you should see 'Client is running!' in your terminal and the bot will be online.
 
