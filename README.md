@@ -2,7 +2,7 @@
 
 To use this bot, you'll need to create a bot application on the Discord Developer Portal and obtain a bot token. Here's how to set it up:
 
-1. If you have git installed, run `git clone https://github.com/aem2231/bot.git` otherwise download (this zip file)[https://github.com/aem2231/bot.git] and extract it to suitable directory.
+1. If you have git installed, run `git clone https://github.com/aem2231/bot.git` otherwise download [this zip file](https://github.com/aem2231/bot.git) and extract it to suitable directory.
    
 2. Create a Discord Bot Application:
 
