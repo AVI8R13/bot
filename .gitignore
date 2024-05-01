@@ -165,3 +165,4 @@ caseCounts.json
 tokens.json
 qrcode.png
 /db
+flake.lock
