@@ -1,8 +1,9 @@
 import discord
 from discord.ext import commands
-import src.cogs.config.config as config
+import config as config
 import os
 
+cogs_path = "./src/cogs"
 token = config.discordToken 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -15,7 +16,7 @@ def config():
 config()
 
 async def loadCogs():
-    for fileName in os.listdir("./cogs"):
+    for fileName in os.listdir(cogs_path):
         if fileName.endswith(".py") and fileName != "manageCases.py":
             await client.load_extension(f'cogs.{fileName[:-3]}')
             print(f"{fileName[:-3]} cog loaded!")
@@ -28,7 +29,7 @@ async def on_ready():
 @client.command()
 async def load(ctx, extension):
     if extension == "all":
-        for fileName in os.listdir("./cogs"):
+        for fileName in os.listdir(cogs_path):
             if fileName.endswith(".py") and fileName!= "manageCases.py":
                 await client.load_extension(f'cogs.{fileName[:-3]}')
         await ctx.send(f'Cogs loaded.')
@@ -40,7 +41,7 @@ async def load(ctx, extension):
 @client.command()
 async def unload(ctx, extension):
     if extension == "all":
-        for fileName in os.listdir("./cogs"):
+        for fileName in os.listdir(cogs_path):
             if fileName.endswith(".py") and fileName!= "manageCases.py":
                 await client.unload_extension(f'cogs.{fileName[:-3]}')
         await ctx.send(f'Cogs unloaded.')
