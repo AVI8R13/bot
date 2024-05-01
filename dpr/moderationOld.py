@@ -3,7 +3,7 @@ from discord.ext import commands
 from manageCases import ManageCases
 import json
 from datetime import datetime
-from ManageDatabase import ManageDatabase
+from src.cogs.ManageDatabase import ManageDatabase
 import os
 
 class Moderation(commands.Cog):

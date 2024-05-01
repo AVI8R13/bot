@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-import config
+import src.cogs.config.config as config
 import os
 
 token = config.discordToken 

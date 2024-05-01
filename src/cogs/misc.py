@@ -5,7 +5,7 @@ from datetime import datetime
 import qrcode
 import requests
 from ping3 import ping
-import config
+import src.cogs.config.config as config
 import aiohttp
 import json
 

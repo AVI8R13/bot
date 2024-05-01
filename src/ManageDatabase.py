@@ -8,6 +8,8 @@ class ManageDatabase:
             os.mkdir("db/")
 
     def createDb(self, serverID):
+
+        #set up sqlite database for server case logs
         conn = sqlite3.connect("db/serverCases.db")
         c = conn.cursor()
         c.execute("""CREATE TABLE IF NOT EXISTS serverCases (
@@ -25,6 +27,7 @@ class ManageDatabase:
             conn.commit()
         conn.close()
 
+        #set up sqlite database for user case logs
         conn = sqlite3.connect(f"db/{serverID}_userCases.db")
         c = conn.cursor()
         c.execute(f"""CREATE TABLE IF NOT EXISTS userCases (
@@ -34,6 +37,30 @@ class ManageDatabase:
             reason TEXT,
             date TEXT,
             time TEXT
+        )""")
+        conn.commit()
+        conn.close()
+
+        #set up sqlite database for user warnings
+        conn = sqlite3.connect(f"db/{serverID}_userWarnings.db")
+        c = conn.cursor()
+        c.execute(f"""CREATE TABLE IF NOT EXISTS userWarnings (
+            userID TEXT DEFAULT '',
+            responsibleModerator TEXT,
+            warnNumber INT DEFAULT 0,
+            reason TEXT,
+            date TEXT,
+            time TEXT
+        )""")
+        conn.commit()
+        conn.close()
+
+        #set up sqlite database for global warnings
+        conn = sqlite3.connect(f"db/users_globalWarnings.db")
+        c = conn.cursor()
+        c.execute(f"""CREATE TABLE IF NOT EXISTS globalWarnings (
+            userID TEXT DEFAULT '',
+            warnNumber INT DEFAULT 0
         )""")
         conn.commit()
         conn.close()
@@ -62,7 +89,6 @@ class ManageDatabase:
         conn.commit()
         conn.close()
 
-
         #Updates server logs
         conn = sqlite3.connect(f"db/{serverID}_userCases.db")
         c = conn.cursor()
@@ -70,3 +96,19 @@ class ManageDatabase:
         (caseInfo['userID'], caseInfo['responsibleModerator'], caseInfo['caseType'], caseInfo['reason'], caseInfo['date'], caseInfo['time']))
         conn.commit()
         conn.close()
+
+        if caseInfo['caseType'] == "warns":
+            #Updates user warnings
+            conn = sqlite3.connect(f"db/{serverID}_userWarnings.db")
+            c = conn.cursor()
+            c.execute(f"INSERT INTO userWarnings (userID, responsibleModerator, warnNumber, reason, date, time) VALUES (?, ?, ?, ?, ?, ?)",
+            (caseInfo['userID'], caseInfo['responsibleModerator'], caseInfo['caseType'], caseInfo['reason'], caseInfo['date'], caseInfo['time']))
+            conn.commit()
+            conn.close()
+
+            #Updates global warnings
+            conn = sqlite3.connect(f"db/users_globalWarnings.db")
+            c = conn.cursor()
+            c.execute(f"UPDATE globalWarnings SET warnNumber = warnNumber + 1 WHERE userID = ?", (caseInfo['userID'],))
+            conn.commit()
+            conn.close()
