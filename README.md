@@ -1,6 +1,6 @@
 ## A quick note
 
-This is not a good bot by any means. I don't recommend you use it as a moderation boy. It was simply just a small project for me to work on my python skills.
+This is not a good bot by any means. I don't recommend you use it as a moderation bot. It was simply just a small project for me to work on my python skills.
 
 ## Getting Started
 
