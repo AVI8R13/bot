@@ -1,10 +1,8 @@
-## Getting started 
-
-### A quick note
+## A quick note
 
 This is not a good bot by any means. I don't recommend you use it as a moderation boy. It was simply just a small project for me to work on my python skills.
 
-## Set Up
+## Getting Started
 
 To use this bot, you'll need to create a bot application on the Discord Developer Portal and obtain a bot token. Here's how to set it up:
 
