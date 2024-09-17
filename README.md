@@ -4,6 +4,8 @@
 
 This is not a good bot by any means. I don't recommend you use it as a moderation boy. It was simply just a small project for me to work on my python skills.
 
+## Set Up
+
 To use this bot, you'll need to create a bot application on the Discord Developer Portal and obtain a bot token. Here's how to set it up:
 
 1. If you have git installed, run `git clone https://github.com/aem2231/bot.git` otherwise download [this zip file](https://github.com/aem2231/bot.git) and extract it to suitable directory.
